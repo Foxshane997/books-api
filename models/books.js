@@ -1,15 +1,20 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-// const express = require('express');
-// const router = express.Router();
+//Declaration 
+const mongoose = require('mongoose')
 
-const booksSchema = new Schema({
-    id: { type: Number, required: true },
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    year: { type: Number, required: true },
-    quantity: { type: Number, required: true },
-    imageURL: { type: String, required: true }
-});
+//Schema Shorthand
+const { Schema } = mongoose
 
-module.exports = router;
+//Schema
+const bookSchema = new Schema({
+    title:String,
+    description:String,
+    year: Number,
+    quantity: Number,
+    image: String
+
+})
+
+
+const Book = mongoose.model('Book', bookSchema)
+
+module.exports = Book

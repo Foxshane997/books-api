@@ -1,19 +1,27 @@
-// Require needed modules.
+//dependencies
 const express = require('express')
-
-// Initialize the app object.
+const mongoose = require('mongoose')
 const app = express()
+const cors = require('cors')
 
-// homepage route.
-app.get('/', function (req, res) {
-    res.send('Hello world')
+// Config
+require('dotenv').config();
+const PORT = process.env.PORT;
+app.use(express.json())
+
+app.use(cors())
+mongoose.connect(process.env.MONGO_URI)
+
+
+app.get('/', (req, res) => {
+    res.send('want a book?')
 })
 
-app.get('/books', function (req, res) {
-    res.render('./books')
-})
-// Getting cannot GET Books
 
-app.listen(3000, function (){
-    console.log('Server Live.')
-})
+const booksController = require('./controllers/books_controller')
+app.use('/books', booksController)
+
+// Listener
+app.listen(PORT, () => {
+    console.log('listening on port', PORT);
+});
